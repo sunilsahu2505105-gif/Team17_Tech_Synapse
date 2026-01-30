@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Patient Login</title>
+  <link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="caregiver-login.html" aria-label="Home">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>CareHub</span>
+      </a>
+      <nav class="nav">
+        <a class="pill" href="caregiver-login.html">Caregiver Login</a>
+        <a class="pill" href="caregiver-register.html">Register</a>
+        <a class="pill" href="caregiver.html">Dashboard</a>
+        <button class="pill" id="themeToggle" type="button" aria-label="Toggle day/night theme">Day</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container hero">
+    <div class="hero-grid one">
+      <section class="card card-pad">
+        <h1 class="h1">Patient login</h1>
+        <p class="sub">Login to view your visit history (available on any device).</p>
+
+        <div class="notice" id="patientAuthNotice" hidden></div>
+
+        <form class="form" id="patientAuthForm" autocomplete="on">
+          <div>
+            <div class="label">Patient ID / MRN *</div>
+            <input class="input" name="patientId" placeholder="PT-1024" required />
+          </div>
+
+          <div>
+            <div class="label">Phone (10 digits) *</div>
+            <input class="input" name="patientPhone" inputmode="numeric" placeholder="9876543210" required />
+          </div>
+
+          <div class="stack">
+            <button class="btn btn-primary" type="submit">Login to patient portal</button>
+            <a class="btn" href="patient-register.html">New patient? Register</a>
+            <a class="btn btn-ghost" href="index.html">Back</a>
+          </div>
+
+          <div class="notice">
+            Your caregiver’s visit records appear here after they save a visit (with photo + timestamp + location).
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <div class="footer">© 2026 CareHub</div>
+  </main>
+
+  <script src="static/js/app.js"></script>
+</body>
+</html>

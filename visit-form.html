@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>New Patient Visit</title>
+  <link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html" aria-label="Home">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>CareHub</span>
+      </a>
+      <nav class="nav">
+        <a class="pill" href="caregiver.html">Dashboard</a>
+        <a class="pill" href="patient-login.html">Patient Portal</a>
+        <button class="pill" id="themeToggle" type="button" aria-label="Toggle day/night theme">Day</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container hero">
+    <div class="hero-grid one">
+      <section class="card card-pad">
+        <h1 class="h1">Record a patient visit</h1>
+        <p class="sub">All fields are required (including photo + location).</p>
+
+        <div class="notice" id="visitNotice" hidden></div>
+
+        <form class="form" id="visitForm" autocomplete="on">
+          <div id="patientStep" class="card" style="background: transparent; box-shadow:none; border:none; padding:0;">
+            <div class="section-head" style="margin-bottom:6px;">
+              <h3>1) Patient login</h3>
+              <p>Fill once</p>
+            </div>
+
+            <div class="row2">
+              <div>
+                <div class="label">Patient ID / MRN *</div>
+                <input class="input" name="patientId" placeholder="PT-1024" required />
+              </div>
+              <div>
+                <div class="label">Patient phone (10 digits) *</div>
+                <input class="input" name="patientPhone" inputmode="numeric" placeholder="9876543210" required />
+              </div>
+            </div>
+
+            <div id="patientNameRow" style="display:none;">
+              <div class="label">Patient name *</div>
+              <input class="input" name="patientName" placeholder="e.g., Mohan Singh" />
+              <div class="sub" style="margin-top:8px;">Patient not found — enter name to create new patient record.</div>
+            </div>
+
+            <div class="stack">
+              <button class="btn btn-primary" id="patientContinueBtn" type="button">Continue</button>
+              <a class="btn btn-ghost" href="caregiver.html">Back</a>
+            </div>
+          </div>
+
+          <div id="visitStep" style="display:none;">
+            <div class="section-head" style="margin-top:8px;">
+              <h3>2) Visit details</h3>
+              <p>Required</p>
+            </div>
+
+            <div class="row2">
+              <div>
+                <div class="label">Visit date *</div>
+                <input class="input" id="visitDate" name="visitDate" type="date" required />
+              </div>
+              <div>
+                <div class="label">Timestamp</div>
+                <input class="input" id="checkedAtDisplay" type="text" readonly />
+              </div>
+            </div>
+
+            <div>
+              <div class="label">Pre-exam image scan (YOLOv8) (optional)</div>
+              <div class="notice" style="margin-top:8px;">
+                <input class="input" id="preExamPhotoFile" type="file" accept="image/*" />
+                <div class="stack" style="margin-top:10px;">
+                  <button class="btn" id="preExamDetectBtn" type="button">Run YOLOv8 detection</button>
+                </div>
+                <div class="sub" id="preExamDetectResult" style="margin-top:8px;">Upload an image to detect objects before examining the patient.</div>
+              </div>
+            </div>
+
+          <div class="row2">
+            <div>
+              <div class="label">Vitals: BP *</div>
+              <input class="input" name="bp" placeholder="120/80" required />
+            </div>
+            <div>
+              <div class="label">Vitals: Pulse *</div>
+              <input class="input" name="pulse" inputmode="numeric" placeholder="72" required />
+            </div>
+          </div>
+
+          <div class="row2">
+            <div>
+              <div class="label">Vitals: SpO₂ (%) *</div>
+              <input class="input" name="spo2" inputmode="numeric" placeholder="98" required />
+            </div>
+            <div>
+              <div class="label">Vitals: Temperature (°C) *</div>
+              <input class="input" name="tempC" inputmode="decimal" placeholder="36.8" required />
+            </div>
+          </div>
+
+          <div>
+            <div class="label">Checks performed *</div>
+            <div class="notice" style="margin-top:8px;">
+              <label style="display:block; margin:6px 0;"><input type="checkbox" name="check_medication" /> Medication reviewed</label>
+              <label style="display:block; margin:6px 0;"><input type="checkbox" name="check_wound" /> Wound / skin check done</label>
+              <label style="display:block; margin:6px 0;"><input type="checkbox" name="check_fall" /> Fall-risk check done</label>
+              <label style="display:block; margin:6px 0;"><input type="checkbox" name="check_hydration" /> Hydration / nutrition checked</label>
+              <hr style="border:0; border-top:1px solid var(--stroke); margin:10px 0; opacity:.7;" />
+              <label style="display:block; margin:6px 0;"><input type="checkbox" name="check_blood_sugar" /> Blood sugar checked (if applicable)</label>
+              <label style="display:block; margin:6px 0;"><input type="checkbox" name="check_resp" /> Respiratory assessment done</label>
+              <label style="display:block; margin:6px 0;"><input type="checkbox" name="check_med_admin" /> Medicines administered</label>
+              <label style="display:block; margin:6px 0;"><input type="checkbox" name="check_dressing" /> Dressing / wound care provided</label>
+              <label style="display:block; margin:6px 0;"><input type="checkbox" name="check_mobility" /> Mobility / physiotherapy exercises guided</label>
+              <label style="display:block; margin:6px 0;"><input type="checkbox" name="check_hygiene" /> Hygiene / bathing support given</label>
+              <label style="display:block; margin:6px 0;"><input type="checkbox" name="check_mental" /> Mental wellbeing check done</label>
+              <label style="display:block; margin:6px 0;"><input type="checkbox" name="check_followup" /> Follow-up / referral scheduled</label>
+            </div>
+            <div class="sub" style="margin-top:10px;">Check what you performed. Remaining tasks will show as pending in the dashboard.</div>
+          </div>
+
+          <div>
+            <div class="label">Symptoms / findings *</div>
+            <textarea class="input" name="findings" rows="4" placeholder="Describe what you checked and observed…" required></textarea>
+          </div>
+
+          <div>
+            <div class="label">Photo proof (image) *</div>
+            <div class="notice" style="margin-top:8px;">
+              <video id="visitVideo" playsinline autoplay muted style="width:100%; border-radius:14px; border:1px solid var(--stroke);"></video>
+              <canvas id="visitCanvas" width="640" height="480" style="display:none;"></canvas>
+              <div class="stack" style="margin-top:10px;">
+                <button class="btn" id="visitStartCamBtn" type="button">Start camera</button>
+                <button class="btn" id="visitCaptureBtn" type="button">Capture photo</button>
+                <button class="btn" id="visitDetectBtn" type="button">Detect objects (YOLOv8)</button>
+                <label class="btn btn-ghost" style="cursor:pointer;">
+                  Upload instead
+                  <input class="input" id="visitPhotoFile" name="photo" type="file" accept="image/*" style="display:none;" />
+                </label>
+              </div>
+              <div class="sub" style="margin-top:8px;">Camera works on https or localhost. Capture or upload is required.</div>
+              <div class="sub" id="visitDetectResult" style="margin-top:8px;"></div>
+            </div>
+          </div>
+
+          <div class="row2">
+            <div>
+              <div class="label">Location latitude *</div>
+              <input class="input" name="lat" id="lat" placeholder="" required readonly />
+            </div>
+            <div>
+              <div class="label">Location longitude *</div>
+              <input class="input" name="lng" id="lng" placeholder="" required readonly />
+            </div>
+          </div>
+
+          <div>
+            <div class="label">Address (current visit location) *</div>
+            <input class="input" name="address" id="address" placeholder="House / Street / Area / City" required />
+          </div>
+
+          <div class="stack">
+            <button class="btn" id="getLocationBtn" type="button">Get current GPS location</button>
+            <button class="btn btn-primary" type="submit">Save visit to database</button>
+            <button class="btn btn-ghost" id="backToPatientBtn" type="button">Back to patient</button>
+          </div>
+
+          <div class="notice" id="timestampNote"></div>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <div class="footer">© 2026 CareHub</div>
+  </main>
+
+  <script src="static/js/app.js"></script>
+</body>
+</html>

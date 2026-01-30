@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Caregiver Dashboard</title>
+	<link rel="stylesheet" href="static/css/style.css" />
+</head>
+
+<body data-page="dashboard">
+	<header class="topbar">
+		<div class="container topbar-inner">
+			<a class="brand" href="caregiver-login.html" aria-label="Home">
+				<span class="brand-badge" aria-hidden="true"></span>
+				<span>CareSynapse</span>
+			</a>
+
+			<nav class="nav">
+				<a class="pill" href="caregiver-register.html">Register</a>
+				<a class="pill" href="caregiver-login.html">Login</a>
+				<a class="pill" href="visit-form.html">Record Visit</a>
+				<a class="pill" href="patient-login.html">Patient Portal</a>
+				<button class="pill" id="themeToggle" type="button" aria-label="Toggle day/night theme">Day</button>
+				<button class="pill" id="logoutBtn" type="button">Logout</button>
+			</nav>
+		</div>
+	</header>
+
+	<main class="container main">
+		<section class="card card-pad" style="margin-top:16px;">
+			<div class="section-head">
+				<h3>Caregiver workspace</h3>
+				<p>Multiple headers + placeholders</p>
+			</div>
+			<h1 class="h1" style="margin-top:6px;">Daily patient visits + AI assistant</h1>
+			<div class="stack">
+				<span class="badge">Status: Prototype</span>
+				<span class="badge">AI</span>
+				<span class="badge">Visits: Browser storage</span>
+			</div>
+		</section>
+
+		<section class="layout" style="margin-top:16px;">
+			<aside class="card side">
+				<div class="profile">
+					<div class="profile-top">
+						<div class="avatar" aria-hidden="true"></div>
+						<div>
+							<h2 id="cgName">Caregiver</h2>
+							<div class="meta" id="cgRole">Specialization</div>
+							<div class="meta" id="cgEmail">email@example.com</div>
+						</div>
+					</div>
+
+					<div class="profile-grid">
+						<div class="field">
+							<div class="k">Phone</div>
+							<div class="v" id="cgPhone">—</div>
+						</div>
+						<div class="field">
+							<div class="k">Aadhaar</div>
+							<div class="v" id="cgAadhaar">—</div>
+						</div>
+						<div class="field">
+							<div class="k">Experience</div>
+							<div class="v" id="cgExp">—</div>
+						</div>
+						<div class="field">
+							<div class="k">City</div>
+							<div class="v" id="cgCity">—</div>
+						</div>
+						<div class="field">
+							<div class="k">Languages</div>
+							<div class="v" id="cgLang">—</div>
+						</div>
+						<div class="field">
+							<div class="k">Shift</div>
+							<div class="v" id="cgShift">—</div>
+						</div>
+					</div>
+
+					<div class="stack" style="margin-top:14px;">
+						<a class="btn" href="visit-form.html">Record a visit</a>
+						<a class="btn btn-ghost" href="caregiver-login.html">Switch account</a>
+					</div>
+				</div>
+			</aside>
+
+			<section class="card">
+				<div class="content">
+					<div class="toolbar">
+						<div>
+							<div class="section-head" style="margin:0;">
+								<h3>Today’s visits</h3>
+							</div>
+						</div>
+						<div class="stack" style="margin:0;">
+							<a class="btn" href="visit-form.html">Record a visit</a>
+							<a class="btn btn-primary" href="#ai">Open AI assistant</a>
+						</div>
+					</div>
+
+					<div class="grid2" style="margin-top:14px;">
+						<div class="card" style="background: transparent; box-shadow:none; border:none;">
+							<div class="section-head">
+								<h3>Shift tasks</h3>
+								<p>Completed / In process / Not completed</p>
+							</div>
+							<div class="notice" style="margin-bottom:12px;">
+								<div class="row2">
+									<div>
+										<div class="label">Total tasks (fixed)</div>
+										<input class="input" id="shiftTotalTasks" type="number" min="0" step="1" value="12" readonly />
+										<div class="label" style="margin-top:12px;">Completed tasks (today)</div>
+										<input class="input" id="shiftCompletedTasks" type="number" min="0" step="1" value="0" />
+										<div class="sub" style="margin-top:6px;">Total tasks is fixed to 12 checklist items.</div>
+										<div class="label" style="margin-top:12px;">Patient ID (optional)</div>
+										<input class="input" id="taskPatientIdFilter" type="text" placeholder="Leave empty for whole shift" />
+										<div class="sub" style="margin-top:6px;">If set, the chart shows tasks for that one patient.</div>
+									</div>
+									<div style="display:flex; align-items:flex-end; gap:10px;">
+										<button class="btn btn-primary" id="saveShiftPlanBtn" type="button">Save plan</button>
+										<button class="btn" id="applyTaskFilterBtn" type="button">Apply</button>
+										<button class="btn btn-ghost" id="resetShiftPlanBtn" type="button">Reset</button>
+									</div>
+								</div>
+							</div>
+							<div class="notice" style="display:flex; gap:16px; align-items:center;">
+								<svg width="92" height="92" viewBox="0 0 36 36" aria-label="Shift task status chart">
+									<path
+										id="taskPieTrack"
+										d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+										fill="none"
+										stroke="rgba(233,238,255,.20)"
+										stroke-width="3"
+										transform="rotate(-90 18 18)"
+									/>
+									<path
+										id="taskArcCompleted"
+										d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+										fill="none"
+										stroke="var(--accent)"
+										stroke-width="3"
+										stroke-dasharray="0, 100"
+										stroke-dashoffset="0"
+										transform="rotate(-90 18 18)"
+									/>
+									<path
+										id="taskArcInProgress"
+										d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+										fill="none"
+										stroke="rgba(255, 208, 90, .95)"
+										stroke-width="3"
+										stroke-dasharray="0, 100"
+										stroke-dashoffset="0"
+										transform="rotate(-90 18 18)"
+									/>
+									<path
+										id="taskArcNotCompleted"
+										d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+										fill="none"
+										stroke="rgba(233,238,255,.45)"
+										stroke-width="3"
+										stroke-dasharray="0, 100"
+										stroke-dashoffset="0"
+										transform="rotate(-90 18 18)"
+									/>
+								</svg>
+								<div>
+									<div class="h1" id="taskPct" style="margin:0; font-size:30px;">0%</div>
+									<div class="sub" id="taskMeta" style="margin-top:4px;">0 / 0 tasks completed</div>
+									<div class="sub" id="taskBreakdown" style="margin-top:6px;">Completed: 0 • In process: 0 • Not completed: 0</div>
+								</div>
+							</div>
+							<div class="sub" id="taskHint" style="margin-top:10px;">Set today’s task plan, then record visits. Partial checklist updates the chart.</div>
+						</div>
+						<div class="card" style="background: transparent; box-shadow:none; border:none;">
+							<div class="section-head">
+								<h3>Tip</h3>
+								<p>Use the patient portal for reminders</p>
+							</div>
+							<div class="notice">Patients can add medicine + test reminders in the Patient Portal. Notifications appear while the portal is open.</div>
+						</div>
+					</div>
+
+					<table class="table" aria-label="Visits">
+						<thead>
+							<tr>
+								<th>Patient</th>
+								<th>Photo</th>
+								<th>ID</th>
+								<th>Phone</th>
+								<th>Date</th>
+								<th>Notes</th>
+							</tr>
+						</thead>
+						<tbody id="visitsTbody"></tbody>
+					</table>
+
+					<div class="grid2" style="margin-top:14px;" id="ai">
+						<div class="card" style="background: transparent; box-shadow:none; border:none;">
+							<div class="section-head">
+								<h3>AI chatbot</h3>
+							</div>
+							<div class="notice">
+								This section is a UI shell: message list, quick prompts, and input box.
+							</div>
+
+							<div class="quick" style="margin-top:10px;">
+								<button class="btn" type="button" data-quick="Summarize today’s visit notes">Summarize notes</button>
+								<button class="btn" type="button" data-quick="Suggest fall-risk checklist for this patient">Fall-risk checklist</button>
+								<button class="btn" type="button" data-quick="Create a medication reminder schedule">Medication reminders</button>
+								<button class="btn" type="button" data-quick="Draft caregiver handover message">Handover draft</button>
+							</div>
+
+							<div class="notice" style="margin-top:12px;">
+								<div class="section-head" style="margin:0 0 10px 0;">
+									<h3 style="margin:0;">AI visit Q&A</h3>
+									<p style="margin:0;">Asks multiple questions and checks completion status</p>
+								</div>
+								<div class="stack" style="margin:0;">
+									<button class="btn btn-primary" id="aiStartVisitQaBtn" type="button">Start (latest visit)</button>
+									<button class="btn" id="aiEvaluateVisitQaBtn" type="button" disabled>Evaluate answers</button>
+								</div>
+								<div id="aiQaNotice" class="sub" style="margin-top:10px;">Tip: record a visit first, then run Q&A.</div>
+								<div id="aiQaQuestions" style="margin-top:10px;"></div>
+							</div>
+						</div>
+
+						<div>
+							<div class="chat">
+								<div class="chat-log" id="chatLog" aria-label="Chat messages"></div>
+								<form class="chat-input" id="chatForm">
+									<input class="input" id="chatInput" placeholder="Type a message…" aria-label="Chat input" />
+									<button class="btn btn-primary" type="submit">Send</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</section>
+
+		<div class="footer">
+			© 2026 Tech Synpse— Dashboard prototype
+		</div>
+	</main>
+
+	<script src="static/js/app.js"></script>
+</body>
+</html>

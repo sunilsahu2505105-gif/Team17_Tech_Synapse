@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CareHub</title>
+  <link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html" aria-label="Home">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>CareHub</span>
+      </a>
+      <nav class="nav">
+        <a class="pill" href="caregiver-register.html">Register</a>
+        <a class="pill" href="caregiver-login.html">Caregiver Login</a>
+        <a class="pill" href="visit-form.html">Record Visit</a>
+        <a class="pill" href="patient-login.html">Patient Portal</a>
+        <a class="pill" href="caregiver.html">Dashboard</a>
+        <button class="pill" id="themeToggle" type="button" aria-label="Toggle day/night theme">Day</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container hero">
+    <div class="hero-grid">
+      <section class="card card-pad">
+        <h1 class="h1">Caregiver portal</h1>
+
+        <div class="stack">
+          <a class="btn btn-primary" href="caregiver-register.html">Start registration</a>
+          <a class="btn" href="caregiver-login.html">Login</a>
+          <a class="btn" href="visit-form.html">Record a visit</a>
+          <a class="btn btn-ghost" href="caregiver.html">Open dashboard</a>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="label">Header layout</div>
+            <div class="value">Multi-header style</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Left profile</div>
+            <div class="value">Sticky sidebar</div>
+          </div>
+          <div class="kpi">
+            <div class="label">AI chatbot</div>
+            <div class="value">UI only</div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card card-pad">
+        <div class="section-head">
+          <h3>Suggested flow</h3>
+          <p>Prototype</p>
+        </div>
+        <div class="notice">
+          1) Register caregiver → 2) Patient login (today’s visit) 
+        </div>
+        <p class="sub" style="margin-top:12px;">
+          Data is stored in your browser LocalStorage for now.
+        </p>
+      </aside>
+    </div>
+
+    <div class="footer">© 2026 Tech Synpse — UI prototype</div>
+  </main>
+
+  <script src="static/js/app.js"></script>
+</body>
+</html>

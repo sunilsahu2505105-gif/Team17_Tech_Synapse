@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Patient Portal</title>
+  <link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body data-page="patient">
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html" aria-label="Home">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>CareHub</span>
+      </a>
+      <nav class="nav">
+        <a class="pill" href="patient-login.html">Patient Login</a>
+        <button class="pill" id="themeToggle" type="button" aria-label="Toggle day/night theme">Day</button>
+        <a class="btn btn-ghost" href="caregiver.html">Open dashboard</a>
+        <button class="pill" id="patientLogoutBtn" type="button">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main">
+    <section class="card card-pad" style="margin-top:16px;">
+      <div class="section-head">
+        <h3>Patient portal</h3>
+        <p>Your visit records</p>
+      </div>
+      <h1 class="h1" style="margin-top:6px;" id="ptTitle">Welcome</h1>
+      <p class="sub" id="ptSub">Loading your visits…</p>
+      <div class="notice" id="ptNotice" hidden></div>
+    </section>
+
+    <section class="card" style="margin-top:16px;">
+      <div class="content">
+        <div class="toolbar">
+          <div>
+            <div class="section-head" style="margin:0;">
+              <h3>Latest visits</h3>
+              <p>Photo + checks + timestamp + location</p>
+            </div>
+          </div>
+        </div>
+
+        <table class="table" aria-label="Patient Visits">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Caregiver</th>
+              <th>Vitals</th>
+              <th>Location</th>
+              <th>Photo</th>
+            </tr>
+          </thead>
+          <tbody id="patientVisitsTbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:16px;">
+      <div class="content">
+        <div class="toolbar">
+          <div>
+            <div class="section-head" style="margin:0;">
+              <h3>Reminders</h3>
+              <p>Medicines + required tests (notifications while portal is open)</p>
+            </div>
+          </div>
+          <div class="stack" style="margin:0;">
+            <button class="btn btn-primary" id="enableNotificationsBtn" type="button">Enable notifications</button>
+          </div>
+        </div>
+
+        <div class="notice" id="remindersNotice" hidden></div>
+
+        <div class="grid2" style="margin-top:14px;">
+          <div class="card" style="background: transparent; box-shadow:none; border:none;">
+            <div class="section-head">
+              <h3>Medicine schedule</h3>
+              <p>Daily time (HH:MM)</p>
+            </div>
+
+            <form class="form" id="medReminderForm">
+              <div>
+                <div class="label">Medicine name *</div>
+                <input class="input" name="medName" placeholder="e.g., Metformin" required />
+              </div>
+              <div class="row2">
+                <div>
+                  <div class="label">Time *</div>
+                  <input class="input" name="timeOfDay" type="time" required />
+                </div>
+                <div>
+                  <div class="label">Notes</div>
+                  <input class="input" name="notes" placeholder="After food / before sleep" />
+                </div>
+              </div>
+              <div class="stack">
+                <button class="btn btn-primary" type="submit">Add medicine reminder</button>
+              </div>
+            </form>
+
+            <table class="table" aria-label="Medication Reminders" style="margin-top:12px;">
+              <thead>
+                <tr>
+                  <th>Medicine</th>
+                  <th>Time</th>
+                  <th>Notes</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="medRemindersTbody"></tbody>
+            </table>
+          </div>
+
+          <div class="card" style="background: transparent; box-shadow:none; border:none;">
+            <div class="section-head">
+              <h3>Test schedule</h3>
+              <p>One-time due date/time</p>
+            </div>
+
+            <form class="form" id="testReminderForm">
+              <div>
+                <div class="label">Test name *</div>
+                <input class="input" name="testName" placeholder="e.g., Blood sugar" required />
+              </div>
+              <div class="row2">
+                <div>
+                  <div class="label">Due date & time *</div>
+                  <input class="input" name="dueAt" type="datetime-local" required />
+                </div>
+                <div>
+                  <div class="label">Notes</div>
+                  <input class="input" name="notes" placeholder="Fasting required" />
+                </div>
+              </div>
+              <div class="stack">
+                <button class="btn btn-primary" type="submit">Add test reminder</button>
+              </div>
+            </form>
+
+            <table class="table" aria-label="Test Reminders" style="margin-top:12px;">
+              <thead>
+                <tr>
+                  <th>Test</th>
+                  <th>Due</th>
+                  <th>Notes</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="testRemindersTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">© 2026 Tech Synpse</div>
+  </main>
+
+  <script src="static/js/app.js"></script>
+</body>
+</html>

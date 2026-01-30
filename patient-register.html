@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Patient Registration</title>
+  <link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html" aria-label="Home">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>CareHub</span>
+      </a>
+      <nav class="nav">
+        <a class="pill" href="patient-login.html">Patient Login</a>
+        <a class="pill" href="caregiver-login.html">Caregiver Login</a>
+        <button class="pill" id="themeToggle" type="button" aria-label="Toggle day/night theme">Day</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container hero">
+    <div class="hero-grid one">
+      <section class="card card-pad">
+        <h1 class="h1">Patient registration</h1>
+        <p class="sub">Register once with photo + mobile + Aadhaar. You will get a unique Patient ID for future login and verification.</p>
+
+        <div class="notice" id="patientRegNotice" hidden></div>
+
+        <form class="form" id="patientRegisterForm" autocomplete="on">
+          <div>
+            <div class="label">Patient ID (auto-generated)</div>
+            <input class="input" id="patientIdDisplay" name="patientIdDisplay" placeholder="Will be generated after registration" readonly />
+          </div>
+
+          <div>
+            <div class="label">Full name *</div>
+            <input class="input" name="patientName" placeholder="e.g., Mohan Singh" required />
+          </div>
+
+          <div class="row2">
+            <div>
+              <div class="label">Mobile number (10 digits) *</div>
+              <input class="input" name="patientPhone" inputmode="numeric" placeholder="9876543210" required />
+            </div>
+            <div>
+              <div class="label">Aadhaar (12 digits) *</div>
+              <input class="input" name="aadhaar" inputmode="numeric" placeholder="123412341234" required />
+            </div>
+          </div>
+
+          <div>
+            <div class="label">Photo (camera) *</div>
+            <div class="notice" style="margin-top:8px;">
+              <video id="regVideo" playsinline autoplay muted style="width:100%; border-radius:14px; border:1px solid var(--stroke);"></video>
+              <canvas id="regCanvas" width="640" height="480" style="display:none;"></canvas>
+              <div class="stack" style="margin-top:10px;">
+                <button class="btn" id="regStartCamBtn" type="button">Start camera</button>
+                <button class="btn" id="regCaptureBtn" type="button">Capture photo</button>
+                <button class="btn" id="regDetectBtn" type="button">Detect objects (YOLOv8)</button>
+                <label class="btn btn-ghost" style="cursor:pointer;">
+                  Upload instead
+                  <input type="file" name="photo" id="regPhotoFile" accept="image/*" style="display:none;" />
+                </label>
+              </div>
+              <div class="sub" style="margin-top:8px;">On mobile, allow camera permission. Capture is required.</div>
+              <div class="sub" id="regDetectResult" style="margin-top:8px;"></div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <button class="btn btn-primary" type="submit">Register patient</button>
+            <a class="btn btn-ghost" href="patient-login.html">I already have a Patient ID</a>
+          </div>
+
+          <div class="notice" id="patientIdBox" hidden></div>
+        </form>
+      </section>
+    </div>
+
+    <div class="footer">© 2026 CareHub</div>
+  </main>
+
+  <script src="static/js/app.js"></script>
+</body>
+</html>
